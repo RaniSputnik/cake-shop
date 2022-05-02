@@ -1,8 +1,10 @@
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class Order(product: Product, orderDate: LocalDateTime) {
+class Order(val product: Product, val orderDate: LocalDateTime) {
+
     fun getDeliveryDate(): LocalDate {
-        return LocalDate.of(2022, 3,3)
+        val orderedOn = LocalDate.from(this.orderDate)
+        return orderedOn.plusDays(2)
     }
 }
