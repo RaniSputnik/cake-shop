@@ -1,10 +1,11 @@
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class Order(val product: Product, val orderDate: LocalDateTime) {
+class Order(private val cake: Cake, private val orderDate: LocalDateTime) {
 
     fun getDeliveryDate(): LocalDate {
         val orderedOn = LocalDate.from(this.orderDate)
-        return orderedOn.plusDays(2)
+        val leadTime = cake.bakingTime() + cake.decoratingTime()
+        return orderedOn.plusDays(leadTime.toLong())
     }
 }

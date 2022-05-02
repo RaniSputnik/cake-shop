@@ -14,10 +14,28 @@ internal class OrderTest {
 
     @Test
     fun testSmallCakesHaveALeadTimeOfTwoDays() {
-        val smallCakeOrder = Order(Product.SmallCake, afternoon("2022-03-01"))
+        val smallCakeOrder = Order(Cake.small(), afternoon("2022-03-01"))
         assertEquals(expect("2022-03-03"), smallCakeOrder.getDeliveryDate())
 
-        val anotherOrder = Order(Product.SmallCake, afternoon("2022-05-04"))
+        val anotherOrder = Order(Cake.small(), afternoon("2022-05-04"))
         assertEquals(expect("2022-05-06"), anotherOrder.getDeliveryDate())
+    }
+
+    @Test
+    fun testBigCakesHaveALeadTimeOfThreeDays() {
+        val smallCakeOrder = Order(Cake.big(), afternoon("2022-03-01"))
+        assertEquals(expect("2022-03-04"), smallCakeOrder.getDeliveryDate())
+
+        val anotherOrder = Order(Cake.big(), afternoon("2022-05-03"))
+        assertEquals(expect("2022-05-06"), anotherOrder.getDeliveryDate())
+    }
+
+    @Test
+    fun testCustomFrostingAddsTwoDaysLeadTime() {
+        val smallCakeOrder = Order(Cake.small().withCustomFrosting(), afternoon("2022-03-01"))
+        assertEquals(expect("2022-03-05"), smallCakeOrder.getDeliveryDate())
+
+        val anotherOrder = Order(Cake.big().withCustomFrosting(), afternoon("2022-03-07"))
+        assertEquals(expect("2022-03-12"), anotherOrder.getDeliveryDate())
     }
 }
